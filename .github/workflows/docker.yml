@@ -83,8 +83,12 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Start containers with podman compose
         run: |
+          echo '#!/bin/sh' > /usr/local/bin/podman-compose
+          echo 'docker-compose "$@"' >> /usr/local/bin/podman-compose
+          chmod +x /usr/local/bin/podman-compose
           echo '#!/bin/sh' > /usr/local/bin/podman
           echo 'docker "$@"' >> /usr/local/bin/podman
+          chmod +x /usr/local/bin/podman
           ./bootstrap.sh
           PHP_VERSION=$(echo ${{ matrix.container }} | sed -e 's/^php//')
           echo "PHP_VERSION=${PHP_VERSION}" >> .env
