@@ -84,6 +84,7 @@ jobs:
       - name: Start containers with podman compose
         run: |
           alias podman="docker"
+          alias podman-compose="docker-compose"
           ./bootstrap.sh
           PHP_VERSION=$(echo ${{ matrix.container }} | sed -e 's/^php//')
           echo "PHP_VERSION=${PHP_VERSION}" >> .env
