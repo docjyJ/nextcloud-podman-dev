@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-.PHONY: images docker-build pull-all docs docs-watch
+.PHONY: images podman-build pull-all docs docs-watch
 
 .ONESHELL:
 images: docker/*/Dockerfile docker/Dockerfile.*
@@ -9,36 +9,36 @@ images: docker/*/Dockerfile docker/Dockerfile.*
 pull-all:
 	for file in $$(find docker/ -maxdepth 1 -type f -iname 'Dockerfile.*'); do \
 		NAME=$$(echo $$file | sed 's/^.*\.//'); \
-		echo "=> Pulling image $$NAME"; docker pull "ghcr.io/juliushaertl/nextcloud-dev-$${NAME}"; \
+		echo "=> Pulling image $$NAME"; podman pull "ghcr.io/docjyj/nextcloud-dev-$${NAME}"; \
 	done
-	for file in $$(find docker -maxdepth 2 -type f -iname 'Dockerfile'); do \
+	for file in $$(find podman -maxdepth 2 -type f -iname 'Dockerfile'); do \
 		NAME=$$(basename $$(dirname $$file)); \
-		echo "=> Pulling image $$NAME"; docker pull "ghcr.io/juliushaertl/nextcloud-dev-$${NAME}"; \
+		echo "=> Pulling image $$NAME"; podman pull "ghcr.io/docjyj/nextcloud-dev-$${NAME}"; \
 	done
 
 pull-installed:
-	docker image ls | grep juliushaertl/nextcloud-dev | cut -f 1 -d " "
-	docker image ls | grep juliushaertl/nextcloud-dev | cut -f 1 -d " " | xargs -L 1 docker pull
+	podman image ls | grep docjyj/nextcloud-dev | cut -f 1 -d " "
+	podman image ls | grep docjyj/nextcloud-dev | cut -f 1 -d " " | xargs -L 1 podman pull
 
 # Empty target to always build
-docker-build:
+podman-build:
 
-docker/%/Dockerfile: docker-build
+docker/%/Dockerfile: podman-build
 	NAME=$$(basename $$(dirname $@)); \
-	echo "=> Building dockerfile" $@ as ghcr.io/juliushaertl/nextcloud-dev-$$NAME:latest; \
-	(cd docker && docker build -t ghcr.io/juliushaertl/nextcloud-dev-$$NAME:latest -f $$NAME/Dockerfile .)
+	echo "=> Building dockerfile" $@ as ghcr.io/docjyj/nextcloud-dev-$$NAME:latest; \
+	(cd podman && podman build -t ghcr.io/docjyj/nextcloud-dev-$$NAME:latest -f $$NAME/Dockerfile .)
 
-docker/Dockerfile.%: docker-build
+docker/Dockerfile.%: podman-build
 	NAME=$$(echo $$(basename $@) | sed 's/^.*\.//'); \
-	echo "=> Building dockerfile" $@ as ghcr.io/juliushaertl/nextcloud-dev-$$NAME:latest; \
-	(cd docker && docker build -t ghcr.io/juliushaertl/nextcloud-dev-$$NAME:latest -f Dockerfile.$$NAME .)
+	echo "=> Building dockerfile" $@ as ghcr.io/docjyj/nextcloud-dev-$$NAME:latest; \
+	(cd podman && podman build -t ghcr.io/docjyj/nextcloud-dev-$$NAME:latest -f Dockerfile.$$NAME .)
 
 check: dockerfilelint shellcheck
 
 .ONESHELL:
 dockerfilelint:
 	for file in $$(find docker/ -type f -iname 'Dockerfile.*' -maxdepth 1); do dockerfilelint $$file; done;
-	for file in $$(find docker -type f -iname 'Dockerfile' -maxdepth 2); do dockerfilelint $$file; done;
+	for file in $$(find podman -type f -iname 'Dockerfile' -maxdepth 2); do dockerfilelint $$file; done;
 
 .ONESHELL:
 shellcheck:

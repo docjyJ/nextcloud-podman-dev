@@ -175,21 +175,21 @@ function is_installed() {
 echo
 echo "⏩ Performing system checks"
 
-is_installed docker
+is_installed podman
 is_installed git
 
 DCC=
-docker-compose version >/dev/null 2>/dev/null && DCC='docker-compose'
-docker compose version >/dev/null 2>/dev/null && DCC='docker compose'
+podman-compose version >/dev/null 2>/dev/null && DCC='podman-compose'
+podman compose version >/dev/null 2>/dev/null && DCC='podman compose'
 
 if [ -z "$DCC" ]; then
-	echo "❌ Install docker-compose before running this script"
+	echo "❌ Install podman-compose before running this script"
 	exit 1
 fi
 
 (
-	(docker ps 2>&1 >/dev/null && echo "✅ Docker is properly executable") ||
-		(echo "❌ Cannot run docker ps, you might need to check that your user is able to use docker properly" && exit 1)
+	(podman ps 2>&1 >/dev/null && echo "✅ podman is properly executable") ||
+		(echo "❌ Cannot run podman ps, you might need to check that your user is able to use podman properly" && exit 1)
 ) | indent
 
 
@@ -204,7 +204,7 @@ DOMAIN_SUFFIX=.local
 REPO_PATH_SERVER=$PWD/workspace/server
 STABLE_ROOT_PATH=$PWD/workspace
 NEXTCLOUD_AUTOINSTALL_APPS="${NEXTCLOUD_AUTOINSTALL_APPS[@]}"
-DOCKER_SUBNET=192.168.21.0/24
+PODMAN_SUBNET=192.168.21.0/24
 PORTBASE=821
 PHP_XDEBUG_MODE=develop
 # SQL variant to use, possible values: sqlite, mysql, pgsql
@@ -295,5 +295,5 @@ cat <<EOF
 
 For more details about the individual setup options see
 the README.md file or checkout the repo at
-https://github.com/juliushaertl/nextcloud-docker-dev
+https://github.com/docjyj/nextcloud-podman-dev
 EOF

@@ -23,7 +23,7 @@ address=/.local/127.0.0.1
 To run dnsmasq in a container, you can use the following example:
 
 ```
-docker run --rm -it \
+podman run --rm -it \
     -e DMQ_DHCP_RANGES=" " \
     -e DMQ_DHCP_DNS=" " \
     -e DMQ_DHCP_GATEWAY=" " \

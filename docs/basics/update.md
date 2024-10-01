@@ -6,7 +6,7 @@
 - Update the container images through either
   - `make pull-installed` to pull the latest versions of all images that are already downloaded
   - `make pull-all` to pull the latest versions of all images
-- After pulling make sure to either recreate the containers manually or recreate the full development environment through `docker compose down -v` and `docker compose up -d nextcloud` for the containers in use.
+- After pulling make sure to either recreate the containers manually or recreate the full development environment through `podman compose down -v` and `podman compose up -d nextcloud` for the containers in use.
 
 ## Updating the Nextcloud server
 
@@ -25,7 +25,7 @@ For other apps checked out you might want to run a separate `git pull` in the re
 If nextcloud requires migration steps it will ask you to run an upgrade which can be done with the following command:
 
 ```bash
-docker compose exec nextcloud occ upgrade
+podman compose exec nextcloud occ upgrade
 ```
 
 ### Major version bump

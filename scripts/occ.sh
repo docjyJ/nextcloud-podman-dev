@@ -32,7 +32,7 @@ Examples:
 
     $0 stable25 -- status
         Run the occ command "status" in the stable25 container
-    
+
     $0 stable25 status
         The same as above with guessing that status is the occ command in question
 
@@ -42,7 +42,7 @@ EOF
 }
 
 run_occ() {
-    docker_compose exec --user www-data "$container" ./occ "$@"
+    podman_compose exec --user www-data "$container" ./occ "$@"
     exit $?
 }
 

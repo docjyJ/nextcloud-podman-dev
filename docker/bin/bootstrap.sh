@@ -387,7 +387,7 @@ check_source() {
 	if [ -f "$FILE" ]; then
 		output "Server source is mounted, continuing"
 	else
-		# Only autoinstall when not running in docker compose
+		# Only autoinstall when not running in podman compose
 		if [ -n "$VIRTUAL_HOST" ] && [ ! -f "$WEBROOT"/version.php ]
 		then
 			output "======================================================================================="

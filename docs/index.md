@@ -1,4 +1,4 @@
-This documentation covers a Nextcloud development environment using docker compose providing a large variety of services for Nextcloud server and app development and testing.
+This documentation covers a Nextcloud development environment using podman compose providing a large variety of services for Nextcloud server and app development and testing.
 
 ⚠ **DO NOT USE THIS IN PRODUCTION** 
 
@@ -14,4 +14,4 @@ Various settings in this setup are considered insecure and default passwords and
 - 🚀 Blackfire, Xdebug for profiling and debugging
 - 📄 Lots of integrating service containers: Collabora Online, Onlyoffice, Elasticsearch, ...
 
-Follow the [getting started guide](https://juliushaertl.github.io/nextcloud-docker-dev/basics/getting-started/) or the [Nextcloud developer tutorial](https://nextcloud.com/developer/) to get started.
+Follow the [getting started guide](https://docjyj.github.io/nextcloud-podman-dev/basics/getting-started/) or the [Nextcloud developer tutorial](https://nextcloud.com/developer/) to get started.

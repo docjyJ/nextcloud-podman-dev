@@ -1,6 +1,6 @@
 # Hook scripts
 
-Scripts in this directory will be picked up by the docker containers
+Scripts in this directory will be picked up by the podman containers
 automatically. They can be used for automating setup specific to a developers
 use cases
 

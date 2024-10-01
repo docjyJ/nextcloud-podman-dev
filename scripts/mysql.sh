@@ -26,7 +26,7 @@ EOF
 }
 
 run_mysql() {
-    docker_compose exec database-mysql mysql -u nextcloud -pnextcloud "$instance" "$@"
+    podman_compose exec database-mysql mysql -u nextcloud -pnextcloud "$instance" "$@"
     exit $?
 }
 

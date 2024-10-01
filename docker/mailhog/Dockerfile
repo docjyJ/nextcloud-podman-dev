@@ -13,7 +13,7 @@ RUN apk --no-cache add --virtual build-dependencies \
 
 FROM alpine
 # Add mailhog user/group with uid/gid 1000.
-# This is a workaround for boot2docker issue #581, see
+# This is a workaround for boot2podman issue #581, see
 # https://github.com/boot2docker/boot2docker/issues/581
 RUN adduser -D -u 1000 mailhog
 

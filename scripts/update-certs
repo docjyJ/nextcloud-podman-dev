@@ -14,7 +14,7 @@ fi
 
 CERT_DIR="${SCRIPT_DIR}/../data/ssl/"
 
-awk '$1 == "-"{ if (key == "aliases:") print $NF; next } {key=$1}' docker-compose.yml | \
+awk '$1 == "-"{ if (key == "aliases:") print $NF; next } {key=$1}' podman-compose.yml | \
 	sed "s/\${DOMAIN_SUFFIX}/${DOMAIN_SUFFIX}/" | \
 	while read -r line;
 	do

@@ -16,11 +16,11 @@ fi
 CONTAINER=$1
 
 function occ() {
-    docker_compose exec "$CONTAINER" sudo -E -u www-data "./occ" "$@"
+    podman_compose exec "$CONTAINER" sudo -E -u www-data "./occ" "$@"
 }
 
 echo "Setting up talk signaling with ${PROTOCOL:-http}://talk-signaling$DOMAIN_SUFFIX on $CONTAINER"
-docker_compose up -d talk-signaling talk-janus
+podman_compose up -d talk-signaling talk-janus
 
 if ! occ talk:signaling:list --output="plain" | grep -q "${PROTOCOL:-http}://talk-signaling$DOMAIN_SUFFIX"; then
   occ talk:signaling:add "${PROTOCOL:-http}://talk-signaling$DOMAIN_SUFFIX" "1234"

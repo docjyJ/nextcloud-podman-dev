@@ -16,13 +16,13 @@ fi
 CONTAINER=$1
 
 function occ() {
-    docker_compose exec "$CONTAINER" sudo -E -u www-data "./occ" "$@"
+    podman_compose exec "$CONTAINER" sudo -E -u www-data "./occ" "$@"
 }
 
 
 
 echo "Setting up Collabora with collabora$DOMAIN_SUFFIX on $CONTAINER"
-docker_compose up -d collabora
+podman_compose up -d collabora
 occ app:enable richdocuments --force
 occ config:app:set richdocuments wopi_url --value="${PROTOCOL:-http}://collabora${DOMAIN_SUFFIX}"
 occ config:app:set richdocuments public_wopi_url --value="${PROTOCOL:-http}://collabora${DOMAIN_SUFFIX}"

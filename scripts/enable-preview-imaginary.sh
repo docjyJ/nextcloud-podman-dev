@@ -8,7 +8,7 @@ source "${SCRIPT_DIR}/../.env"
 source "${SCRIPT_DIR}/functions.sh"
 
 function OCC () {
-    docker_compose exec nextcloud sudo -E -u www-data "./occ" "$@"
+    podman_compose exec nextcloud sudo -E -u www-data "./occ" "$@"
 }
 
 OCC config:system:set enabledPreviewProviders 0 --value 'OC\Preview\MP3'

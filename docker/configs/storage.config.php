@@ -1,6 +1,6 @@
 <?php
 // FIXME: Move everything except the last part to the containers
-// set the hostname to the VIRTUAL_HOST set for the docker container, otherwise fallback to the docker hostname
+// set the hostname to the VIRTUAL_HOST set for the podman container, otherwise fallback to the podman hostname
 $hostname = gethostname();
 $primary = isset($_ENV['PRIMARY']) ? $_ENV['PRIMARY'] : '';
 $virtualHost = isset($_ENV['VIRTUAL_HOST']) ? $_ENV['VIRTUAL_HOST'] : '';

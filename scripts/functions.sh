@@ -1,18 +1,18 @@
 #!/bin/bash
 
-function get_docker_compose_command() {
-    docker-compose version >/dev/null 2>/dev/null && DCC='docker-compose'
-    docker compose version >/dev/null 2>/dev/null && DCC='docker compose'
+function get_podman_compose_command() {
+    podman-compose version >/dev/null 2>/dev/null && DCC='podman-compose'
+    podman compose version >/dev/null 2>/dev/null && DCC='podman compose'
     if [ -z "$DCC" ]; then
         return
     fi
     echo "$DCC"
 }
 
-function docker_compose() {
-    DCC=$(get_docker_compose_command)
+function podman_compose() {
+    DCC=$(get_podman_compose_command)
     if [ -z "$DCC" ]; then
-        echo "❌ Install docker-compose before running this script"
+        echo "❌ Install podman-compose before running this script"
         exit 1
     fi
     $DCC "$@"

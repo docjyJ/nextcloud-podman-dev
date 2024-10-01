@@ -17,12 +17,12 @@ fi
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 restart() {
-    (cd "$SCRIPT_DIR/.." && docker_compose exec "$1" pkill -USR1 apache2)
+    (cd "$SCRIPT_DIR/.." && podman_compose exec "$1" pkill -USR1 apache2)
 }
 
-docker_exec() {
+podman_exec() {
     # shellcheck disable=SC2068
-    (cd "$SCRIPT_DIR/.." && docker_compose exec $@)
+    (cd "$SCRIPT_DIR/.." && podman_compose exec $@)
 }
 
 if [[ "$2" == "blackfire" ]]
@@ -30,12 +30,12 @@ then
     if [[ "$3" == "on" ]]
     then
         echo 'Enabling blackfire'
-        docker_compose up -d blackfire
-        docker_exec "$1" "mv /usr/local/etc/php/conf.d/docker-php-ext-blackfire.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-blackfire.ini"
+        podman_compose up -d blackfire
+        podman_exec "$1" "mv /usr/local/etc/php/conf.d/docker-php-ext-blackfire.ini.disabled /usr/local/etc/php/conf.d/docker-php-ext-blackfire.ini"
     else
         echo 'Disabling blackfire'
-        docker_compose stop blackfire
-        docker_exec "$1" "mv /usr/local/etc/php/conf.d/docker-php-ext-blackfire.ini /usr/local/etc/php/conf.d/docker-php-ext-blackfire.ini.disabled"
+        podman_compose stop blackfire
+        podman_exec "$1" "mv /usr/local/etc/php/conf.d/docker-php-ext-blackfire.ini /usr/local/etc/php/conf.d/docker-php-ext-blackfire.ini.disabled"
     fi
     restart "$1"
     exit 0
@@ -47,13 +47,13 @@ then
     then
         echo "Setting $2 to $3"
         value="${3//\//\\\/}"
-        docker_exec "$1" sed -i 's/^'"$2"'\s*=\s*.*/'"$2"'='"$value"'/g' /usr/local/etc/php/conf.d/xdebug.ini
+        podman_exec "$1" sed -i 's/^'"$2"'\s*=\s*.*/'"$2"'='"$value"'/g' /usr/local/etc/php/conf.d/xdebug.ini
     else
         echo "No value provided"
         exit 1
     fi
     restart "$1"
-    docker_exec "$1" cat /usr/local/etc/php/conf.d/xdebug.ini
+    podman_exec "$1" cat /usr/local/etc/php/conf.d/xdebug.ini
     exit 0
 fi
 
