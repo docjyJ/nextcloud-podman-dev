@@ -63,4 +63,3 @@ docs:
 docs-watch:
 	pip3 install mkdocs
 	mkdocs serve
-
